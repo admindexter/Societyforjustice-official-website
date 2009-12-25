@@ -53,6 +53,11 @@ namespace :deploy do
     site5::kill_dispatch_fcgi
   end
 
+  set :ssh_options, {:forward_agent => true}
+  on :start do
+    `ssh-add`
+  end
+
   namespace :site5 do
     desc <<-DESC
       Links public_html to current_release/public
